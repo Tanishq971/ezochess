@@ -1,40 +1,14 @@
 import { pieceImages } from "./component";
 import { useSocket } from "./SocketContext";
-import { Chess, type Color, type PieceSymbol, type Square } from "chess.js";
-import { useEffect  , useMemo} from "react";
+import { useMemo } from "react";
 import { MOVE } from "./messages";
+import { type Board , type BoardParameters } from "./types";
 
 
-type BoardSquares = {
-    square:Square;
-    type:PieceSymbol;
-    color:Color
-} | null
-
-
-type Board =  BoardSquares[][]
-
-type BoardParameters = {
-    board:Board;
-    from:string | null;
-    isCheck:boolean;
-    chessRef:React.RefObject<Chess>;
-    setBoard:React.Dispatch<React.SetStateAction<({
-    square: Square;
-    type: PieceSymbol;
-    color: Color;
-} | null)[][]>>;
-    setIsCheck:React.Dispatch<React.SetStateAction<boolean>>;
-    setFrom: React.Dispatch<React.SetStateAction<string | null>>
-}
 
 function Board({ board , from , isCheck ,  chessRef ,  setBoard , setFrom , setIsCheck} : BoardParameters) {
     const {socketRef , isReady} = useSocket();
-    
-    // useEffect(()=>{
-    //      play()
-    //   } , [board])
-
+  
 
       const boardSize = useMemo(() => {
         if (typeof window === "undefined") return 560;
