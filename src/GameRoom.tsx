@@ -1,5 +1,5 @@
 import { useSocket } from "./SocketContext";
-import { useEffect, useState, useRef, useMemo } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Chess } from "chess.js";
 import Board from "./board";
 import useSound from 'use-sound';
@@ -8,12 +8,11 @@ function GameRoom() {
   const { socketRef, isReady } = useSocket();
   const chessRef = useRef(new Chess());
   const [board, setBoard] = useState(chessRef.current.board());
-  const [from, setFrom] = useState<string | null>(null);
+  const [from, setFrom] = useState<string>();
   const [isCheck, setIsCheck] = useState<boolean>(false)
   const [captured , setCaptured]= useState<boolean> (false);
   const [self] = useSound("https://images.chesscomfiles.com/chess-themes/sounds/_MP3_/default/move-self.mp3")
   const [capture] = useSound('https://images.chesscomfiles.com/chess-themes/sounds/_MP3_/default/capture.mp3')
-
 
 
   
@@ -47,7 +46,6 @@ function GameRoom() {
     }
   }, [board])
   
-
 
   return (
     <div className="w-full h-screen bg-[#1c1c1c] flex items-center justify-center p-4">

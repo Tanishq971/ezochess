@@ -2,24 +2,37 @@ import { pieceImages } from "./component";
 import { useSocket } from "./SocketContext";
 import { useMemo } from "react";
 import { MOVE } from "./messages";
-import { type Board , type BoardParameters } from "./types";
+import { type BoardParameters } from "./types";
+// import { type Square } from "chess.js";
+// import { useState } from "react";
 
 
 
-function Board({ board , from , isCheck ,  chessRef ,  setBoard , setFrom , setIsCheck} : BoardParameters) {
-    const {socketRef , isReady} = useSocket();
-  
+function Board({ board, from, isCheck, chessRef, setBoard, setFrom, setIsCheck }: BoardParameters) {
+    const { socketRef } = useSocket();
+    // const [blocks, setBlocks] = useState([]);
+    // console.log("from --- ", from)
+    // const arr = chessRef.current.moves({
+    //     square: from as Square
+    // })
+    // console.log(arr)
 
-      const boardSize = useMemo(() => {
+    // const st = new Set(arr)
+
+
+    //  for(const p of arr){
+    //     console.log(p , "---" , st.has(p))
+    //  }
+    const boardSize = useMemo(() => {
         if (typeof window === "undefined") return 560;
-        
+
         const maxSize = Math.min(
-          window.innerWidth * 0.9, 
-          window.innerHeight * 0.8,
-          620
+            window.innerWidth * 0.9,
+            window.innerHeight * 0.8,
+            620
         );
         return Math.floor(maxSize / 8) * 8;
-      }, []);
+    }, []);
 
 
     return <div
@@ -34,6 +47,16 @@ function Board({ board , from , isCheck ,  chessRef ,  setBoard , setFrom , setI
                 const isDark = (i + j) % 2 === 1;
                 const pos = String.fromCharCode(97 + j) + (8 - i);
 
+                // if (!from) {
+                //     const arr = chessRef.current.moves({
+                //         square: from as Square
+                //     })
+                // } else {
+
+                // }
+
+                // const elements = new Set(arr)
+
                 return (
                     <div
                         key={`${i}-${j}`}
@@ -47,15 +70,17 @@ function Board({ board , from , isCheck ,  chessRef ,  setBoard , setFrom , setI
                                         payload: { from, to: pos },
                                     })
                                 );
-                                setFrom(null);
+                                setFrom(undefined);
                             }
                         }}
-                        className={`
+
+                    className={`
                        relative flex items-center justify-center 
                        aspect-square
                        ${isDark ? "bg-[#6447e8]" : "bg-[#e7bef3]"}
                        hover:brightness-110 active:brightness-95
                        cursor-pointer transition-all duration-150
+                       
                      `}
                     >
 
