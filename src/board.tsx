@@ -8,7 +8,7 @@ import { type BoardParameters } from "./types";
 
 
 
-function Board({ board, from, isCheck, chessRef, setBoard, setFrom, setIsCheck }: BoardParameters) {
+function Board({ board, from, setFrom }: BoardParameters) {
     const { socketRef } = useSocket();
     // const [blocks, setBlocks] = useState([]);
     // console.log("from --- ", from)
