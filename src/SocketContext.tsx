@@ -19,7 +19,7 @@ export const SocketProvider = ({ children }: { children: ReactNode }) => {
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    const socket = new WebSocket("ws://localhost:8080");
+    const socket = new WebSocket("https://ezochess-backend.onrender.com/");
     socketRef.current = socket;
 
     socket.onopen = () => {
