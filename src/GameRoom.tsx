@@ -17,7 +17,6 @@ function GameRoom() {
   const [captured , setCaptured]= useState<boolean> (false);
   const [self] = useSound("https://images.chesscomfiles.com/chess-themes/sounds/_MP3_/default/move-self.mp3")
   const [capture] = useSound('https://images.chesscomfiles.com/chess-themes/sounds/_MP3_/default/capture.mp3')
-  const {color} = useGame()
 
   
   useEffect(() => {
