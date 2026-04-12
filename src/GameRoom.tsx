@@ -4,8 +4,6 @@ import { Chess } from "chess.js";
 import Board from "./board";
 import useSound from 'use-sound';
 import { INIT_GAME } from "./messages";
-import { useGame } from "./GameContext";
-
 
 
 function GameRoom() {
