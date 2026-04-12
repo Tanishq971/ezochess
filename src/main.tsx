@@ -3,11 +3,14 @@ import './index.css'
 import App from './App.tsx'
 import { BrowserRouter } from 'react-router-dom'
 import { SocketProvider } from './SocketContext.tsx'
+import { GameProvider } from './GameContext.tsx'
 
 createRoot(document.getElementById('root')!).render(
    <BrowserRouter>
       <SocketProvider>
-         <App />
+         <GameProvider>
+            <App />
+         </GameProvider>
       </SocketProvider>
    </BrowserRouter>
 )

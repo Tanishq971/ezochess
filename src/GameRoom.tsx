@@ -3,6 +3,10 @@ import { useEffect, useState, useRef } from "react";
 import { Chess } from "chess.js";
 import Board from "./board";
 import useSound from 'use-sound';
+import { INIT_GAME } from "./messages";
+import { useGame } from "./GameContext";
+
+
 
 function GameRoom() {
   const { socketRef, isReady } = useSocket();
@@ -13,7 +17,7 @@ function GameRoom() {
   const [captured , setCaptured]= useState<boolean> (false);
   const [self] = useSound("https://images.chesscomfiles.com/chess-themes/sounds/_MP3_/default/move-self.mp3")
   const [capture] = useSound('https://images.chesscomfiles.com/chess-themes/sounds/_MP3_/default/capture.mp3')
-
+  const {color} = useGame()
 
   
   useEffect(() => {
@@ -30,6 +34,10 @@ function GameRoom() {
         setCaptured(true);
       }
       setBoard(chessRef.current.board());
+
+      if(msg.type === INIT_GAME){
+        console.log("inside game room" , msg.payload)
+      }
     };
 
     socket?.addEventListener("message", onMessage);

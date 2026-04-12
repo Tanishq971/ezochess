@@ -3,6 +3,7 @@ import { useSocket } from "./SocketContext";
 import { useMemo } from "react";
 import { MOVE } from "./messages";
 import { type BoardParameters } from "./types";
+import { useGame } from "./GameContext";
 // import { type Square } from "chess.js";
 // import { useState } from "react";
 
@@ -10,6 +11,7 @@ import { type BoardParameters } from "./types";
 
 function Board({ board, from, setFrom }: BoardParameters) {
     const { socketRef } = useSocket();
+    const {color} = useGame()
     // const [blocks, setBlocks] = useState([]);
     // console.log("from --- ", from)
     // const arr = chessRef.current.moves({
@@ -36,11 +38,12 @@ function Board({ board, from, setFrom }: BoardParameters) {
 
 
     return <div
-        className="grid grid-cols-8 rounded-xl overflow-hidden border-4 border-gray-800 shadow-2xl"
+        className={`grid grid-cols-8 ${color === 'w' ? "rotate-0" : "rotate-180"} rounded-xl overflow-hidden border-4 border-gray-800 shadow-2xl`}
         style={{
             width: `${boardSize}px`,
             height: `${boardSize}px`,
         }}
+
     >
         {board.map((row, i) =>
             row.map((cell, j) => {
@@ -88,20 +91,32 @@ function Board({ board, from, setFrom }: BoardParameters) {
                             <img
                                 src={pieceImages[`${cell.color}${cell.type}`]}
                                 alt={`${cell.color}${cell.type}`}
-                                className="w-[85%] h-[85%] object-contain pointer-events-none select-none drop-shadow-md"
+                                className={`${color === 'b' && "rotate-180"} w-[85%] h-[85%] object-contain pointer-events-none select-none drop-shadow-md`}
                             />
                         )}
 
 
-                        {j === 0 && (
+                        {j === 0 && color === 'w' && (
                             <span className="absolute top-1 left-1.5 text-xs font-bold text-gray-800/90 pointer-events-none">
                                 {8 - i}
                             </span>
                         )}
 
+                        {j === 7 && color === 'b' && (
+                            <span className={`absolute rotate-180 bottom-1 right-1.5 text-xs font-bold text-gray-800/90 pointer-events-none`}>
+                                {8 - i}
+                            </span>
+                        )}
 
-                        {i === 7 && (
+
+                        {i === 7 && color === 'w' && (
                             <span className="absolute bottom-1 right-1.5 text-xs font-bold text-gray-800/90 pointer-events-none">
+                                {String.fromCharCode(97 + j)}
+                            </span>
+                        )}
+
+                         {i === 0 && color === 'b' && (
+                            <span className="absolute top-2 rotate-180 left-1 text-xs font-bold text-gray-800/90 pointer-events-none">
                                 {String.fromCharCode(97 + j)}
                             </span>
                         )}

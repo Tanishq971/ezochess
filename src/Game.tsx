@@ -2,7 +2,7 @@ import { LOBBY, INIT_GAME } from "./messages";
 import { useSocket } from "./SocketContext";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { useGame } from "./GameContext";
 
 export default function ChessHero() {
   const { socketRef, isReady } = useSocket();
@@ -10,8 +10,7 @@ export default function ChessHero() {
   const [status, setStatus] = useState<
     "idle" | "connecting" | "connected" | "waiting" | "playing"
   >("idle");
-
-  const [gameData, setGameData] = useState<any>(null);
+ const {setColor} = useGame();
 
   useEffect(() => {
     if (!isReady) return;
@@ -21,7 +20,6 @@ export default function ChessHero() {
 
     const onMessage = (event: MessageEvent) => {
       const msg = JSON.parse(event.data);
-      console.log("Received:", msg);
 
       if (msg.type === LOBBY) {
         setStatus("waiting");
@@ -29,8 +27,8 @@ export default function ChessHero() {
 
       if (msg.type === INIT_GAME) {
         setStatus("playing");
+        setColor(msg.payload.color)
         navigate(`/game/${msg.payload.gameid}`)
-        setGameData(msg.payload);
       }
     };
 
@@ -64,7 +62,7 @@ export default function ChessHero() {
     <div className="w-full min-h-screen flex items-center justify-center bg-[#1c1c1c] text-white px-6">
       <div className="max-w-6xl w-full flex flex-col md:flex-row items-center justify-between gap-12">
         
-        {/* Image */}
+    
         <div className="flex-1 flex justify-center">
           <img
             src="https://images.unsplash.com/photo-1586165368502-1bad197a6461?w=800"
@@ -73,7 +71,7 @@ export default function ChessHero() {
           />
         </div>
 
-        {/* Content */}
+       
         <div className="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
             Play Chess Online
@@ -86,14 +84,6 @@ export default function ChessHero() {
             {status === "waiting" && "Waiting for opponent... ♟️"}
             {status === "playing" && "Game started!"}
           </p>
-
-          {gameData && (
-            <div className="bg-gray-800 p-4 rounded-lg mb-6">
-              <pre className="text-sm text-green-300">
-                {JSON.stringify(gameData, null, 2)}
-              </pre>
-            </div>
-          )}
 
           {status !== "playing" && (
             <button
