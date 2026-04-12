@@ -26,7 +26,7 @@ function GameRoom() {
       const { from: f, to: t } = msg.payload;
       setIsCheck(msg.isCheck)
       const obj = chessRef.current.move({ from: f, to: t });
-      console.log(obj)
+     
       if(obj.isCapture()){
         setCaptured(true);
       }

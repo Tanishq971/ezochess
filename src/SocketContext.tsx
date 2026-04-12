@@ -6,11 +6,8 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { type SocketContextType } from "./types";
 
-type SocketContextType = {
-  socketRef: React.MutableRefObject<WebSocket | null>;
-  isReady: boolean;
-};
 
 const SocketContext = createContext<SocketContextType | null>(null);
 
@@ -19,8 +16,8 @@ export const SocketProvider = ({ children }: { children: ReactNode }) => {
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    const socket = new WebSocket("http://localhost:8080");
-    // "https://ezochess-backend.onrender.com/"deployed backend url
+    const WS_URL = import.meta.env.VITE_WS_URL
+    const socket = new WebSocket(WS_URL);
 
     socketRef.current = socket;
 

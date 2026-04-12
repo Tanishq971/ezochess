@@ -1,9 +1,5 @@
 import { createContext , useContext, useState, type ReactNode } from "react";
-
-type GameContextType = {
-    color:'w' | 'b' | null,
-    setColor:React.Dispatch<React.SetStateAction<'w' | 'b'| null>>
-}
+import { type GameContextType } from "./types";
 
 const GameContext = createContext<GameContextType | null>(null);
 

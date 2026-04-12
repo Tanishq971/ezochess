@@ -22,3 +22,13 @@ export type BoardParameters = {
     setIsCheck?:React.Dispatch<React.SetStateAction<boolean>>;
     setFrom: React.Dispatch<React.SetStateAction<string | undefined>>
 }
+
+export type SocketContextType = {
+  socketRef: React.MutableRefObject<WebSocket | null>;
+  isReady: boolean;
+};
+
+export type GameContextType = {
+    color:'w' | 'b' | null,
+    setColor:React.Dispatch<React.SetStateAction<'w' | 'b'| null>>
+}
