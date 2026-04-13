@@ -32,3 +32,7 @@ export type GameContextType = {
     color:'w' | 'b' | null,
     setColor:React.Dispatch<React.SetStateAction<'w' | 'b'| null>>
 }
+
+export type ChessBackgroundProps = {
+  variant?: "hero" | "game";
+};
