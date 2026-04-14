@@ -9,9 +9,12 @@ import { useGame } from "./GameContext";
 
 
 
-function Board({ board, from, setFrom }: BoardParameters) {
+function Board({ board, from, setFrom , chessRef}: BoardParameters) {
     const { socketRef } = useSocket();
     const {color} = useGame()
+    const currentTurn = chessRef?.current.turn();
+    const isMyTurn =  currentTurn === color
+
     // const [blocks, setBlocks] = useState([]);
     // console.log("from --- ", from)
     // const arr = chessRef.current.moves({
@@ -25,7 +28,7 @@ function Board({ board, from, setFrom }: BoardParameters) {
     //  for(const p of arr){
     //     console.log(p , "---" , st.has(p))
     //  }
-    const boardSize = useMemo(() => {
+   const boardSize = useMemo(() => {
         if (typeof window === "undefined") return 560;
 
         const maxSize = Math.min(
@@ -62,8 +65,11 @@ function Board({ board, from, setFrom }: BoardParameters) {
 
                 return (
                     <div
+                        
                         key={`${i}-${j}`}
                         onClick={() => {
+                            if(!isMyTurn) return;
+                            
                             if (!from) {
                                 setFrom(pos);
                             } else {
@@ -78,6 +84,7 @@ function Board({ board, from, setFrom }: BoardParameters) {
                         }}
 
                     className={`
+                       
                        relative flex items-center justify-center 
                        aspect-square
                        ${isDark ? "bg-[#6447e8]" : "bg-[#e7bef3]"}
@@ -86,9 +93,10 @@ function Board({ board, from, setFrom }: BoardParameters) {
                        
                      `}
                     >
-
+                        
                         {cell && (
                             <img
+                                
                                 src={pieceImages[`${cell.color}${cell.type}`]}
                                 alt={`${cell.color}${cell.type}`}
                                 className={`${color === 'b' && "rotate-180"} w-[85%] h-[85%] object-contain pointer-events-none select-none drop-shadow-md`}
@@ -97,26 +105,26 @@ function Board({ board, from, setFrom }: BoardParameters) {
 
 
                         {j === 0 && color === 'w' && (
-                            <span className="absolute top-1 left-1.5 text-xs font-bold text-gray-800/90 pointer-events-none">
+                            <span className="absolute top-1 select-none left-1.5 text-xs font-bold text-gray-800/90 pointer-events-none">
                                 {8 - i}
                             </span>
                         )}
 
                         {j === 7 && color === 'b' && (
-                            <span className={`absolute rotate-180 bottom-1 right-1.5 text-xs font-bold text-gray-800/90 pointer-events-none`}>
+                            <span className={`absolute select-none rotate-180 bottom-1 right-1.5 text-xs font-bold text-gray-800/90 pointer-events-none`}>
                                 {8 - i}
                             </span>
                         )}
 
 
                         {i === 7 && color === 'w' && (
-                            <span className="absolute bottom-1 right-1.5 text-xs font-bold text-gray-800/90 pointer-events-none">
+                            <span className="absolute bottom-1 select-none right-1.5 text-xs font-bold text-gray-800/90 pointer-events-none">
                                 {String.fromCharCode(97 + j)}
                             </span>
                         )}
 
                          {i === 0 && color === 'b' && (
-                            <span className="absolute top-2 rotate-180 left-1 text-xs font-bold text-gray-800/90 pointer-events-none">
+                            <span className="absolute top-2 rotate-180  select-none left-1 text-xs font-bold text-gray-800/90 pointer-events-none">
                                 {String.fromCharCode(97 + j)}
                             </span>
                         )}
