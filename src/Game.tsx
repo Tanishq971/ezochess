@@ -5,9 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { useGame } from "./GameContext";
 import Background from "./Background";
 
-
-
-
 export default function ChessHero() {
   const { socketRef, isReady } = useSocket();
   const navigate = useNavigate();
@@ -52,25 +49,24 @@ export default function ChessHero() {
   };
 
   return (
-    <div className="relative w-full min-h-screen text-white">
-
+    <div className="relative w-full min-h-screen text-white overflow-hidden">
       <Background />
 
-     {/* <PlayersOnline/> */}
+      
+      <img
+        src="logo.png"
+        alt="Packing Chess"
+        className="absolute top-4 left-1/2 -translate-x-1/2 z-40 
+                   w-36 sm:w-44 md:w-56 lg:w-64 
+                   drop-shadow-[4px_4px_0_rgba(0,0,0,0.5)]"
+      />
 
-      <h1 className="absolute top-6 left-1/2 -translate-x-1/2 z-40 
-                     text-3xl md:text-5xl font-extrabold tracking-widest 
-                     text-yellow-300 drop-shadow-[4px_4px_0_rgba(0,0,0,0.5)]">
-        CHESS BATTLE
-      </h1>
+  
+      <div className="relative z-30 max-w-4xl mx-auto flex flex-col items-center justify-center min-h-screen px-4 sm:px-6 text-center">
 
-      <div className="relative z-30 max-w-4xl mx-auto flex flex-col items-center justify-center min-h-screen px-6 text-center">
+       
 
-        <h2 className="text-4xl md:text-6xl font-extrabold tracking-wide drop-shadow-[4px_4px_0_rgba(0,0,0,0.4)]">
-          Play Chess Online
-        </h2>
-
-        <p className="text-lg text-gray-200 mt-4 mb-8 max-w-md">
+        <p className="text-base sm:text-lg text-gray-200 mt-3 mb-6 sm:mb-8 max-w-sm sm:max-w-md">
           {status === "idle" && "Loading..."}
           {status === "connecting" && "Connecting to server..."}
           {status === "waiting" && "Waiting for opponent..."}
@@ -80,18 +76,21 @@ export default function ChessHero() {
         <button
           onClick={joinHandler}
           disabled={!isReady || status === "waiting"}
-          className="bg-yellow-400 hover:bg-yellow-500 active:bg-yellow-600 
-                     text-black px-12 py-5 rounded-2xl text-2xl font-bold 
-                     transition-all transform hover:scale-110 shadow-2xl 
-                     disabled:opacity-70 disabled:cursor-not-allowed mb-4"
+          className="w-full sm:w-auto bg-yellow-400 hover:bg-yellow-500 active:bg-yellow-600 
+                     text-black px-8 sm:px-12 py-4 sm:py-5 rounded-2xl 
+                     text-lg sm:text-2xl font-bold 
+                     transition-all transform hover:scale-105 sm:hover:scale-110 
+                     shadow-2xl disabled:opacity-70 disabled:cursor-not-allowed mb-3 sm:mb-4"
         >
           {status === "waiting" ? "Searching..." : "Play Online"}
         </button>
 
+    
         <button
           disabled
-          className="bg-white/20 backdrop-blur-md border border-white/30 
-                     px-10 py-4 rounded-2xl text-lg font-semibold 
+          className="w-full sm:w-auto bg-white/20 backdrop-blur-md border border-white/30 
+                     px-6 sm:px-10 py-3 sm:py-4 rounded-2xl 
+                     text-base sm:text-lg font-semibold 
                      hover:bg-white/30 transition"
         >
           Play with Friend
