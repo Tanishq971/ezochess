@@ -24,7 +24,7 @@ export default function Background({ variant = "hero" }: ChessBackgroundProps) {
         ${isGame ? "opacity-40 blur-sm" : ""}`}
       >
         <img
-          src="/BlackQueen.png"
+          src="https://res.cloudinary.com/dq3aigser/image/upload/v1776145964/o4Jsg_1_-removebg-preview_heuv33.png"
           className="object-contain opacity-75 
                      h-[clamp(140px,20vw,360px)]
                      translate-x-[clamp(10px,2vw,40px)]
@@ -34,7 +34,7 @@ export default function Background({ variant = "hero" }: ChessBackgroundProps) {
 
       
         <img
-          src="/King.png"
+          src="https://res.cloudinary.com/dq3aigser/image/upload/v1776145632/YQAQE-removebg-preview_jlh9v6.png"
           className="object-contain z-30 
                      h-[clamp(220px,30vw,560px)]
                      -ml-[clamp(60px,6vw,130px)]
@@ -51,7 +51,7 @@ export default function Background({ variant = "hero" }: ChessBackgroundProps) {
       >
      
         <img
-          src="/KingW.png"
+          src="https://res.cloudinary.com/dq3aigser/image/upload/v1776145215/Cheerful_chess_king_in_regal_attire-removebg-preview_eagzis.png"
           className="object-contain scale-x-[-1] z-30
                      h-[clamp(220px,30vw,560px)]
                      -translate-x-[clamp(40px,6vw,130px)]
@@ -59,9 +59,9 @@ export default function Background({ variant = "hero" }: ChessBackgroundProps) {
                      drop-shadow-[0_30px_60px_rgba(0,0,0,0.7)] translate-y-2.5"
         />
 
-        {/* White Queen (hidden on small screens) */}
+        
         <img
-          src="/WhiteQueen.png"
+          src="https://res.cloudinary.com/dq3aigser/image/upload/v1776145819/L4nL3-removebg-preview_i4uj9j.png"
           className="object-contain scale-x-[-1.1] opacity-75
                      h-[clamp(140px,20vw,360px)]
                      -ml-[clamp(60px,6vw,130px)]
